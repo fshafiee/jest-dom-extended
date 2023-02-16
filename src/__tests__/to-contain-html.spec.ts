@@ -110,11 +110,11 @@ describe('.toContainHTML', () => {
     }
 
     expect(errorMessage).toMatchInlineSnapshot(`
-<dim>expect(</><red>element</><dim>).toContainHTML()</>
+"<dim>expect(</intensity><red>element</color><dim>).toContainHTML()</intensity>
 Expected:
-  <green><div> non-existant element </div></>
+  <green><div> non-existant element </div></color>
 Received:
-  <red><span data-testid="child" /></>
+  <red><span data-testid="child" /></color>"
 `)
   })
 })
