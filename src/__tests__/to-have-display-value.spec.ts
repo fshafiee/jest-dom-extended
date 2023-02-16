@@ -133,7 +133,7 @@ test('it should throw if element is not valid', () => {
     errorMessage = err.message
   }
 
-  expect(errorMessage).toMatchInlineSnapshot(
+  expect(errorMessage).toEqual(
     `.toHaveDisplayValue() currently supports only input, textarea or select elements, try with another matcher instead.`,
   )
 
@@ -143,7 +143,7 @@ test('it should throw if element is not valid', () => {
     errorMessage = err.message
   }
 
-  expect(errorMessage).toMatchInlineSnapshot(
+  expect(errorMessage).toEqual(
     `.toHaveDisplayValue() currently does not support input[type="radio"], try with another matcher instead.`,
   )
 
@@ -155,7 +155,7 @@ test('it should throw if element is not valid', () => {
     errorMessage = err.message
   }
 
-  expect(errorMessage).toMatchInlineSnapshot(
+  expect(errorMessage).toEqual(
     `.toHaveDisplayValue() currently does not support input[type="checkbox"], try with another matcher instead.`,
   )
 })

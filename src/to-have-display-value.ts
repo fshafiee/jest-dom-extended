@@ -3,6 +3,7 @@ import {
   getMessage,
   isCheckableInput,
   isInputElement,
+  isOptionElement,
   isSelectElement,
   isTextareaElement,
 } from './utils.js'
@@ -63,12 +64,18 @@ export function toHaveDisplayValue(
   }
 }
 
-function getValues(htmlElement: HTMLInputElement | HTMLSelectElement) {
-  return isSelectElement(htmlElement)
-    ? Array.from(htmlElement)
-        .filter(option => option.hasAttribute('selected'))
-        .map(option => option.textContent ?? '')
-    : [htmlElement.value]
+function getValues(
+  htmlElement: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
+) {
+  if (isSelectElement(htmlElement)) {
+    return Array.from(htmlElement)
+      .filter(isOptionElement)
+      .filter(option => option.selected)
+      .map(option => {
+        return option.textContent ?? ''
+      })
+  }
+  return [htmlElement.value]
 }
 
 function getExpectedValues(

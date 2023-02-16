@@ -6,6 +6,8 @@ import {
   getSingleElementValue,
   isCheckableInput,
   isInputElement,
+  isSelectElement,
+  isTextareaElement,
 } from './utils.js'
 
 export function toHaveValue(
@@ -20,8 +22,14 @@ export function toHaveValue(
     )
   }
 
-  if (!isInputElement(htmlElement)) {
-    throw new Error('.toHaveValue(). Cannot be used on non-input elements')
+  if (
+    !isInputElement(htmlElement) &&
+    !isSelectElement(htmlElement) &&
+    !isTextareaElement(htmlElement)
+  ) {
+    throw new Error(
+      '.toHaveValue(). Can only be used on input and select elements',
+    )
   }
 
   const receivedValue = getSingleElementValue(htmlElement)

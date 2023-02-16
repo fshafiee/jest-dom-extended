@@ -245,7 +245,11 @@ const isSelectElement = (el: Element): el is HTMLSelectElement => {
   return el.tagName.toLowerCase() === 'select'
 }
 
-const isTextareaElement = (el: Element): el is HTMLInputElement => {
+const isOptionElement = (el: Element): el is HTMLOptionElement => {
+  return el.tagName.toLowerCase() === 'option'
+}
+
+const isTextareaElement = (el: Element): el is HTMLTextAreaElement => {
   return el.tagName.toLowerCase() === 'textarea'
 }
 
@@ -269,6 +273,7 @@ export {
   toSentence,
   isInputElement,
   isSelectElement,
+  isOptionElement,
   isTextareaElement,
   isCheckableInput,
 }
