@@ -2,7 +2,9 @@ import { render } from './helpers/test-utils.js'
 
 test('.toBeInTheDOM', () => {
   // @deprecated intentionally hiding warnings for test clarity
-  const spy = jest.spyOn(console, 'warn').mockImplementation(() => {})
+  const spy = import.meta.jest
+    .spyOn(console, 'warn')
+    .mockImplementation(() => {})
 
   const { queryByTestId } = render(`
     <span data-testid="count-container">
@@ -31,28 +33,28 @@ test('.toBeInTheDOM', () => {
   expect(() => expect(fakeElement).toBeInTheDocument()).toThrowError()
 
   // Testing toBeInTheDOM with container
-  expect(valueElement).toContainElement(containerElement)
-  expect(svgElement).toContainElement(containerElement)
-  expect(containerElement).not.toContainElement(valueElement)
+  expect(containerElement).toContainElement(valueElement)
+  expect(containerElement).toContainElement(svgElement)
+  expect(valueElement).not.toContainElement(containerElement)
 
   expect(() =>
-    expect(valueElement).not.toContainElement(containerElement),
+    expect(containerElement).not.toContainElement(valueElement),
   ).toThrowError()
 
   expect(() =>
-    expect(svgElement).not.toContainElement(containerElement),
+    expect(containerElement).not.toContainElement(svgElement),
   ).toThrowError()
 
   expect(() =>
-    expect(nonExistantElement).toContainElement(containerElement),
+    expect(containerElement).toContainElement(nonExistantElement),
   ).toThrowError()
 
   expect(() =>
-    expect(fakeElement).toContainElement(containerElement),
+    expect(containerElement).toContainElement(fakeElement),
   ).toThrowError()
 
   expect(() => {
-    expect(valueElement).toContainElement(fakeElement)
+    expect(fakeElement).toContainElement(valueElement)
   }).toThrowError()
 
   spy.mockRestore()
