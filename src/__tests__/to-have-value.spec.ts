@@ -122,12 +122,12 @@ describe('.toHaveValue', () => {
     }
 
     expect(errorMessage).toMatchInlineSnapshot(`
-<dim>expect(</><red>element</><dim>).toHaveValue(</><green>something else</><dim>)</>
+"<dim>expect(</intensity><red>element</color><dim>).toHaveValue(</intensity><green>something else</color><dim>)</intensity>
 
 Expected the element to have value:
-<green>  something else</>
+<green>  something else</color>
 Received:
-<red>  foo</>
+<red>  foo</color>"
 `)
   })
 
@@ -142,12 +142,12 @@ Received:
     }
 
     expect(errorMessage).toMatchInlineSnapshot(`
-<dim>expect(</><red>element</><dim>).toHaveValue(</><green>8</><dim>)</>
+"<dim>expect(</intensity><red>element</color><dim>).toHaveValue(</intensity><green>8</color><dim>)</intensity>
 
 Expected the element to have value:
-<green>  8 (number)</>
+<green>  8 (number)</color>
 Received:
-<red>  8 (string)</>
+<red>  8 (string)</color>"
 `)
   })
 
@@ -161,13 +161,14 @@ Received:
     } catch (error) {
       errorMessage = error.message
     }
+
     expect(errorMessage).toMatchInlineSnapshot(`
-<dim>expect(</><red>element</><dim>).not.toHaveValue(</><green>foo</><dim>)</>
+"<dim>expect(</intensity><red>element</color><dim>).not.toHaveValue(</intensity><green>foo</color><dim>)</intensity>
 
 Expected the element not to have value:
-<green>  foo</>
+<green>  foo</color>
 Received:
-<red>  foo</>
+<red>  foo</color>"
 `)
   })
 
@@ -181,13 +182,14 @@ Received:
     } catch (error) {
       errorMessage = error.message
     }
+
     expect(errorMessage).toMatchInlineSnapshot(`
-<dim>expect(</><red>element</><dim>).toHaveValue(</><green>expected</><dim>)</>
+"<dim>expect(</intensity><red>element</color><dim>).toHaveValue(</intensity><green>expected</color><dim>)</intensity>
 
 Expected the element to have value:
-<green>  (any)</>
+<green>  (any)</color>
 Received:
-
+"
 `)
   })
 
@@ -201,13 +203,14 @@ Received:
     } catch (error) {
       errorMessage = error.message
     }
+
     expect(errorMessage).toMatchInlineSnapshot(`
-<dim>expect(</><red>element</><dim>).not.toHaveValue(</><green>expected</><dim>)</>
+"<dim>expect(</intensity><red>element</color><dim>).not.toHaveValue(</intensity><green>expected</color><dim>)</intensity>
 
 Expected the element not to have value:
-<green>  (any)</>
+<green>  (any)</color>
 Received:
-<red>  foo</>
+<red>  foo</color>"
 `)
   })
 })

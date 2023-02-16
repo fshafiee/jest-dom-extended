@@ -16,19 +16,19 @@ export function toHaveValue(
 ) {
   checkHtmlElement(htmlElement, toHaveValue, this)
 
-  if (isCheckableInput(htmlElement)) {
-    throw new Error(
-      'input with type=checkbox or type=radio cannot be used with .toHaveValue(). Use .toBeChecked() for type=checkbox or .toHaveFormValues() instead',
-    )
-  }
-
   if (
     !isInputElement(htmlElement) &&
     !isSelectElement(htmlElement) &&
     !isTextareaElement(htmlElement)
   ) {
     throw new Error(
-      '.toHaveValue(). Can only be used on input and select elements',
+      '.toHaveValue(). Can only be used on input, select, and textarea elements',
+    )
+  }
+
+  if (isCheckableInput(htmlElement)) {
+    throw new Error(
+      'input with type=checkbox or type=radio cannot be used with .toHaveValue(). Use .toBeChecked() for type=checkbox or .toHaveFormValues() instead',
     )
   }
 

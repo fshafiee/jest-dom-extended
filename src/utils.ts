@@ -218,6 +218,9 @@ function getSingleElementValue(element: HTMLElement) {
   if (isSelectElement(element)) {
     return getSelectValue(element.multiple, element.options)
   }
+  if (isTextareaElement(element)) {
+    return element.value
+  }
   return ''
 }
 
