@@ -1,0 +1,25 @@
+{
+  "javascript.preferences.importModuleSpecifier": "project-relative",
+  "js/ts.implicitProjectConfig.module": "NodeNext",
+  "js/ts.implicitProjectConfig.target": "ES2021",
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "eslint.enable": false,
+  "eslint.format.enable": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+   "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts, ${capture}.d.ts.map",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}

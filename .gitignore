@@ -7,3 +7,11 @@ dist
 # when working with contributors
 package-lock.json
 yarn.lock
+src/**/*.js
+src/**/*.js.map
+src/**/*.cjs
+src/**/*.cjs.map
+src/**/*.d.ts
+src/**/*.d.ts.map
+src/**/*.d.cts
+src/**/*.d.cts.map
