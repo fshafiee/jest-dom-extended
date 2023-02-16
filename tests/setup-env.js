@@ -1,4 +1,4 @@
-import { plugins } from 'pretty-format'
 import '../src/extend-expect.js'
+import ansiEscapesSerializer from 'jest-serializer-ansi-escapes'
 
-expect.addSnapshotSerializer(plugins.ConvertAnsi)
+expect.addSnapshotSerializer(ansiEscapesSerializer)
