@@ -19,11 +19,16 @@
     "build": "tsc -p ./tsconfig.dist.json",
     "test": "node --no-warnings --experimental-vm-modules ./node_modules/jest/bin/jest.js"
   },
+  "files": [
+    "dist",
+    "types"
+  ],
   "keywords": [
     "testing",
     "dom",
     "jest",
-    "jsdom"
+    "jsdom",
+    "esm"
   ],
   "author": "Zee Shafiee <frzd.shafiee@gmail.com>",
   "license": "MIT",
@@ -70,7 +75,7 @@
     "overrides": [
       {
         "files": [
-          "src/__tests__/*.js"
+          "src/__tests__/*.spec.ts"
         ],
         "rules": {
           "max-lines-per-function": "off"
