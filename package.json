@@ -1,6 +1,6 @@
 {
-  "name": "@farzadsh/jest-dom-extended-esm",
-  "version": "1.0.0",
+  "name": "@farzadsh/jest-dom-extended",
+  "version": "6.0.0",
   "description": "Custom Jest matchers to test the state of the DOM for ESM",
   "engines": {
     "node": ">=16.18.1",
@@ -88,7 +88,7 @@
     "url": "https://github.com/testing-library/jest-dom"
   },
   "bugs": {
-    "url": "https://github.com/testing-library/jest-dom/issues"
+    "url": "https://github.com/fshafiee/jest-dom-extended/issues"
   },
   "homepage": "https://github.com/testing-library/jest-dom#readme"
 }

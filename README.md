@@ -1,16 +1,16 @@
 <div align="center">
-<h1>jest-dom</h1>
+<h1>jest-dom-extended</h1>
 
 <a href="https://www.emojione.com/emoji/1f989">
   <img
     height="80"
     width="80"
     alt="owl"
-    src="https://raw.githubusercontent.com/testing-library/jest-dom/main/other/owl.png"
+    src="https://raw.githubusercontent.com/fshafiee/jest-dom-extended/main/other/owl.png"
   />
 </a>
 
-<p>Custom jest matchers to test the state of the DOM</p>
+<p>Custom jest matchers to test the state of the DOM (ESM only)</p>
 
 </div>
 
@@ -40,7 +40,7 @@ content, its css classes, you name it.
 
 ## This solution
 
-The `@testing-library/jest-dom` library provides a set of custom jest matchers
+The `@farzadsh/jest-dom-extended-esm` library provides a set of custom jest matchers
 that you can use to extend jest. These will make your tests more declarative,
 clear to read and to maintain.
 
@@ -76,10 +76,6 @@ clear to read and to maintain.
   - [`toBeChecked`](#tobechecked)
   - [`toBePartiallyChecked`](#tobepartiallychecked)
   - [`toHaveErrorMessage`](#tohaveerrormessage)
-- [Deprecated matchers](#deprecated-matchers)
-  - [`toBeEmpty`](#tobeempty)
-  - [`toBeInTheDOM`](#tobeinthedom)
-  - [`toHaveDescription`](#tohavedescription)
 - [Inspiration](#inspiration)
 - [Other Solutions](#other-solutions)
 - [Guiding Principles](#guiding-principles)
@@ -94,7 +90,7 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev @testing-library/jest-dom
+npm install --save-dev @farzadsh/jest-dom-extended-esm
 ```
 
 or
@@ -102,7 +98,7 @@ or
 for installation with [yarn](https://yarnpkg.com/) package manager.
 
 ```
-yarn add --dev @testing-library/jest-dom
+yarn add --dev @farzadsh/jest-dom-extended-esm
 ```
 
 > Note: We also recommend installing the jest-dom eslint plugin which provides
@@ -113,7 +109,7 @@ yarn add --dev @testing-library/jest-dom
 
 ## Usage
 
-Import `@testing-library/jest-dom` once (for instance in your [tests setup
+Import `@farzadsh/jest-dom-extended-esm` once (for instance in your [tests setup
 file][]) and you're good to go:
 
 [tests setup file]:
@@ -121,7 +117,7 @@ file][]) and you're good to go:
 
 ```javascript
 // In your own jest-setup.js (or any other name)
-import '@testing-library/jest-dom'
+import '@farzadsh/jest-dom-extended-esm'
 
 // In jest.config.js add (if you haven't already)
 setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
@@ -145,7 +141,7 @@ haven't already:
 
 ## Custom matchers
 
-`@testing-library/jest-dom` can work with any library or framework that returns
+`@farzadsh/jest-dom-extended-esm` can work with any library or framework that returns
 DOM elements from queries. The custom matcher examples below are written using
 matchers from `@testing-library`'s suite of libraries (e.g. `getByTestId`,
 `queryByTestId`, `getByText`, etc.)
@@ -1124,120 +1120,6 @@ expect(timeInput).toHaveErrorMessage(expect.stringContaining('Invalid time')) //
 expect(timeInput).not.toHaveErrorMessage('Pikachu!')
 ```
 
-## Deprecated matchers
-
-### `toBeEmpty`
-
-> Note: This matcher is being deprecated due to a name clash with
-> `jest-extended`. See more info in #216. In the future, please use only
-> [`toBeEmptyDOMElement`](#toBeEmptyDOMElement)
-
-```typescript
-toBeEmpty()
-```
-
-This allows you to assert whether an element has content or not.
-
-#### Examples
-
-```html
-<span data-testid="not-empty"><span data-testid="empty"></span></span>
-```
-
-```javascript
-expect(getByTestId('empty')).toBeEmpty()
-expect(getByTestId('not-empty')).not.toBeEmpty()
-```
-
-<hr />
-
-### `toBeInTheDOM`
-
-> This custom matcher is deprecated. Prefer
-> [`toBeInTheDocument`](#tobeinthedocument) instead.
-
-```typescript
-toBeInTheDOM()
-```
-
-This allows you to check whether a value is a DOM element, or not.
-
-Contrary to what its name implies, this matcher only checks that you passed to
-it a valid DOM element. It does not have a clear definition of what "the DOM"
-is. Therefore, it does not check whether that element is contained anywhere.
-
-This is the main reason why this matcher is deprecated, and will be removed in
-the next major release. You can follow the discussion around this decision in
-more detail [here](https://github.com/testing-library/jest-dom/issues/34).
-
-As an alternative, you can use [`toBeInTheDocument`](#tobeinthedocument) or
-[`toContainElement`](#tocontainelement). Or if you just want to check if a value
-is indeed an `HTMLElement` you can always use some of
-[jest's built-in matchers](https://jestjs.io/docs/en/expect#tobeinstanceofclass):
-
-```js
-expect(document.querySelector('.ok-button')).toBeInstanceOf(HTMLElement)
-expect(document.querySelector('.cancel-button')).toBeTruthy()
-```
-
-> Note: The differences between `toBeInTheDOM` and `toBeInTheDocument` are
-> significant. Replacing all uses of `toBeInTheDOM` with `toBeInTheDocument`
-> will likely cause unintended consequences in your tests. Please make sure when
-> replacing `toBeInTheDOM` to read through the documentation of the proposed
-> alternatives to see which use case works better for your needs.
-
-### `toHaveDescription`
-
-> This custom matcher is deprecated. Prefer
-> [`toHaveAccessibleDescription`](#tohaveaccessibledescription) instead, which
-> is more comprehensive in implementing the official spec.
-
-```typescript
-toHaveDescription(text: string | RegExp)
-```
-
-This allows you to check whether the given element has a description or not.
-
-An element gets its description via the
-[`aria-describedby` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-describedby_attribute).
-Set this to the `id` of one or more other elements. These elements may be nested
-inside, be outside, or a sibling of the passed in element.
-
-Whitespace is normalized. Using multiple ids will
-[join the referenced elements’ text content separated by a space](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_description).
-
-When a `string` argument is passed through, it will perform a whole
-case-sensitive match to the description text.
-
-To perform a case-insensitive match, you can use a `RegExp` with the `/i`
-modifier.
-
-To perform a partial match, you can pass a `RegExp` or use
-`expect.stringContaining("partial string")`.
-
-#### Examples
-
-```html
-<button aria-label="Close" aria-describedby="description-close">X</button>
-<div id="description-close">Closing will discard any changes</div>
-
-<button>Delete</button>
-```
-
-```javascript
-const closeButton = getByRole('button', {name: 'Close'})
-
-expect(closeButton).toHaveDescription('Closing will discard any changes')
-expect(closeButton).toHaveDescription(/will discard/) // to partially match
-expect(closeButton).toHaveDescription(expect.stringContaining('will discard')) // to partially match
-expect(closeButton).toHaveDescription(/^closing/i) // to use case-insensitive match
-expect(closeButton).not.toHaveDescription('Other description')
-
-const deleteButton = getByRole('button', {name: 'Delete'})
-expect(deleteButton).not.toHaveDescription()
-expect(deleteButton).toHaveDescription('') // Missing or empty description always becomes a blank string
-```
-
 ## Inspiration
 
 This whole library was extracted out of Kent C. Dodds' [DOM Testing
@@ -1393,40 +1275,40 @@ MIT
   https://github.com/testing-library/react-testing-library
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/github/workflow/status/testing-library/jest-dom/validate?logo=github&style=flat-square
-[build]: https://github.com/testing-library/jest-dom/actions?query=workflow%3Avalidate
-[coverage-badge]: 
+[build-badge]: https://img.shields.io/github/workflow/status/fshafiee/jest-dom-extended/validate?logo=github&style=flat-square
+[build]: https://github.com/fshafiee/jest-dom-extended/actions?query=workflow%3Avalidate
+[coverage-badge]:
   https://img.shields.io/codecov/c/github/testing-library/jest-dom.svg?style=flat-square
 [coverage]: https://codecov.io/github/testing-library/jest-dom
 [version-badge]:
- https://img.shields.io/npm/v/@testing-library/jest-dom.svg?style=flat-square
-[package]: https://www.npmjs.com/package/@testing-library/jest-dom
-[downloads-badge]: 
-  https://img.shields.io/npm/dm/@testing-library/jest-dom.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/@testing-library/jest-dom
-[license-badge]: 
-  https://img.shields.io/npm/l/@testing-library/jest-dom.svg?style=flat-square
-[license]: https://github.com/testing-library/jest-dom/blob/main/LICENSE
-[prs-badge]: 
+ https://img.shields.io/npm/v/@farzadsh/jest-dom-extended-esm.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@farzadsh/jest-dom-extended-esm
+[downloads-badge]:
+  https://img.shields.io/npm/dm/@farzadsh/jest-dom-extended-esm.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/@farzadsh/jest-dom-extended-esm
+[license-badge]:
+  https://img.shields.io/npm/l/@farzadsh/jest-dom-extended-esm.svg?style=flat-square
+[license]: https://github.com/fshafiee/jest-dom-extended/blob/main/LICENSE
+[prs-badge]:
   https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
-[coc-badge]: 
+[coc-badge]:
   https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: 
-  https://github.com/testing-library/jest-dom/blob/main/other/CODE_OF_CONDUCT.md
+[coc]:
+  https://github.com/fshafiee/jest-dom-extended/blob/main/other/CODE_OF_CONDUCT.md
 [github-watch-badge]:
   https://img.shields.io/github/watchers/testing-library/jest-dom.svg?style=social
-[github-watch]: https://github.com/testing-library/jest-dom/watchers
+[github-watch]: https://github.com/fshafiee/jest-dom-extended/watchers
 [github-star-badge]:
   https://img.shields.io/github/stars/testing-library/jest-dom.svg?style=social
-[github-star]: https://github.com/testing-library/jest-dom/stargazers
+[github-star]: https://github.com/fshafiee/jest-dom-extended/stargazers
 [twitter]:
   https://twitter.com/intent/tweet?text=Check%20out%20jest-dom%20by%20%40gnapse%20https%3A%2F%2Fgithub.com%2Ftesting-library%2Fjest-dom%20%F0%9F%91%8D
 [twitter-badge]:
   https://img.shields.io/twitter/url/https/github.com/testing-library/jest-dom.svg?style=social
 [emojis]: https://github.com/all-contributors/all-contributors#emoji-key
 [all-contributors]: https://github.com/all-contributors/all-contributors
-[all-contributors-badge]: 
+[all-contributors-badge]:
   https://img.shields.io/github/all-contributors/testing-library/jest-dom?color=orange&style=flat-square
 [guiding-principle]: https://testing-library.com/docs/guiding-principles
 [discord-badge]: https://img.shields.io/discord/723559267868737556.svg?color=7389D8&labelColor=6A7EC2&logo=discord&logoColor=ffffff&style=flat-square

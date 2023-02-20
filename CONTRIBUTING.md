@@ -42,5 +42,5 @@ requests! Thanks!
 <!-- prettier-ignore-start -->
 [egghead]: https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github
 [all-contributors]: https://github.com/all-contributors/all-contributors
-[issues]: https://github.com/testing-library/jest-dom/issues
+[issues]: https://github.com/fshafiee/jest-dom-extended/issues
 <!-- prettier-ignore-end -->
