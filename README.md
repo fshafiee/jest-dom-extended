@@ -780,12 +780,14 @@ expect(getByTestId('login-form')).toHaveFormValues({
 ### `toHaveStyle`
 
 ```typescript
-toHaveStyle(css: string | object)
+toHaveStyle(css: object)
 ```
 
 This allows you to check if a certain element has some specific css properties
 with specific values applied. It matches only if the element has _all_ the
 expected properties applied, not just some of them.
+
+**CAUTION:** Since the library relies only on [`Window.getComputedStyle`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to compare the values, you need to provide `rgb()` representation of color values in your assertion statments. If you prefer to use semantic names for color assertions, you can use 3rd party libraries (like [colord](https://github.com/omgovich/colord)) or create semantic variables of your own.
 
 #### Examples
 
@@ -801,22 +803,25 @@ expected properties applied, not just some of them.
 ```javascript
 const button = getByTestId('delete-button')
 
-expect(button).toHaveStyle('display: none')
 expect(button).toHaveStyle({display: 'none'})
-expect(button).toHaveStyle(`
-  background-color: red;
-  display: none;
-`)
+
 expect(button).toHaveStyle({
-  backgroundColor: 'red',
-  display: 'none',
+    'background-color': 'rgb(1, 0, 0)',
+    display: none,
 })
-expect(button).not.toHaveStyle(`
-  background-color: blue;
-  display: none;
-`)
+expect(button).toHaveStyle({
+    'background-color': 'rgb(1, 0, 0)',
+    display: none,
+})
+
+const blue = 'rgb(0, 0, 1)'
 expect(button).not.toHaveStyle({
-  backgroundColor: 'blue',
+  'background-color': blue;
+   display: none;
+})
+
+expect(button).not.toHaveStyle({
+  backgroundColor: colord('blue').toRgbString(),
   display: 'none',
 })
 ```
