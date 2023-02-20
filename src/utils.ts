@@ -1,6 +1,5 @@
 import redent from 'redent'
 import isEqual from 'lodash.isequal'
-import { Declaration, parse } from 'css-tree'
 
 class GenericTypeError extends Error {
   constructor(expectedString, received, matcherFn, context) {
@@ -78,56 +77,6 @@ function checkHtmlElement(htmlElement, matcherFn, context) {
   ) {
     throw new HtmlElementTypeError(htmlElement, matcherFn, context)
   }
-}
-
-class InvalidCSSError extends Error {
-  constructor(received, matcherFn, context) {
-    super()
-
-    /* istanbul ignore next */
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, matcherFn)
-    }
-    this.message = [
-      received.message,
-      '',
-      // eslint-disable-next-line @babel/new-cap
-      context.utils.RECEIVED_COLOR(`Failing css:`),
-      // eslint-disable-next-line @babel/new-cap
-      context.utils.RECEIVED_COLOR(`${received.css}`),
-    ].join('\n')
-  }
-}
-
-function parseCSS(css, matcherFn, context) {
-  const ast = parse(`selector { ${css} }`, {
-    onParseError: error => {
-      throw new InvalidCSSError(
-        {
-          css,
-          message: error.message,
-        },
-        matcherFn,
-        context,
-      )
-    },
-  })
-
-  if (ast.type === 'Declaration') {
-    return {
-      [ast.property]: ast.value,
-    }
-  }
-  if (ast.type === 'DeclarationList') {
-    return ast.children
-      .filter(d => d.type === 'Declaration')
-      .reduce(
-        (obj, { property, value }: Declaration) =>
-          Object.assign(obj, { [property]: value }),
-        {},
-      )
-  }
-  return {}
 }
 
 function display(context, value) {
@@ -265,7 +214,6 @@ export {
   NodeTypeError,
   checkHtmlElement,
   checkNode,
-  parseCSS,
   deprecate,
   getMessage,
   matches,

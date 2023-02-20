@@ -33,7 +33,6 @@
     "@jest/globals": "^29.4.3",
     "aria-query": "^5.0.0",
     "chalk": "^3.0.0",
-    "css-tree": "^2.3.1",
     "css.escape": "^1.5.1",
     "dom-accessibility-api": "^0.5.16",
     "lodash": "^4.17.15",

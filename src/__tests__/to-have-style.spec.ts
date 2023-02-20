@@ -24,37 +24,39 @@ describe('.toHaveStyle', () => {
     document.body.appendChild(style)
     document.body.appendChild(container)
 
-    expect(container.querySelector('.label')).toHaveStyle(`
-          height: 100%;
-          color: white;
-          background-color: blue;
-        `)
+    expect(container.querySelector('.label')).toHaveStyle({
+      height: '100%',
+      color: 'white',
+      backgroundColor: 'blue',
+    })
 
-    expect(container.querySelector('.label')).toHaveStyle(`
-          background-color: blue;
-          color: white;
-        `)
+    expect(container.querySelector('.label')).toHaveStyle({
+      backgroundColor: 'blue',
+      color: 'white',
+    })
 
-    expect(container.querySelector('.label')).toHaveStyle(
-      'transition: opacity 0.2s ease-out, top 0.3s cubic-bezier(1.175, 0.885, 0.32, 1.275)',
-    )
+    expect(container.querySelector('.label')).toHaveStyle({
+      transition:
+        'opacity 0.2s ease-out, top 0.3s cubic-bezier(1.175, 0.885, 0.32, 1.275)',
+    })
 
-    expect(container.querySelector('.label')).toHaveStyle(
-      'background-color:blue;color:white',
-    )
+    expect(container.querySelector('.label')).toHaveStyle({
+      backgroundColor: 'blue',
+      color: 'white',
+    })
 
-    expect(container.querySelector('.label')).not.toHaveStyle(`
-          color: white;
-          font-weight: bold;
-        `)
+    expect(container.querySelector('.label')).not.toHaveStyle({
+      color: 'white',
+      fontWeight: 'bold',
+    })
 
-    expect(container.querySelector('.label')).toHaveStyle(`
-        Align-items: center;
-      `)
+    expect(container.querySelector('.label')).toHaveStyle({
+      alignItems: 'center',
+    })
 
-    expect(container.querySelector('.label')).toHaveStyle(`
-      transform: translateX(0px);
-    `)
+    expect(container.querySelector('.label')).toHaveStyle({
+      transform: 'translateX(0px)',
+    })
   })
 
   test('handles negative test cases', () => {
@@ -77,35 +79,23 @@ describe('.toHaveStyle', () => {
     document.body.appendChild(container)
 
     expect(() =>
-      expect(container.querySelector('.label')).toHaveStyle(
-        'font-weight: bold',
-      ),
+      expect(container.querySelector('.label')).toHaveStyle({
+        fontWeight: 'bold',
+      }),
     ).toThrowError()
 
     expect(() =>
-      expect(container.querySelector('.label')).not.toHaveStyle('color: white'),
+      expect(container.querySelector('.label')).not.toHaveStyle({
+        color: 'white',
+      }),
     ).toThrowError()
 
     expect(() =>
-      expect(container.querySelector('.label')).toHaveStyle(
-        'transition: all 0.7s ease, width 1.0s cubic-bezier(3, 4, 5, 6);',
-      ),
+      expect(container.querySelector('.label')).toHaveStyle({
+        transition: 'all 0.7s ease, width 1.0s cubic-bezier(3, 4, 5, 6)',
+      }),
     ).toThrowError()
 
-    // Make sure the test fails if the css syntax is not valid
-    expect(() =>
-      expect(container.querySelector('.label')).not.toHaveStyle(
-        'font-weight bold',
-      ),
-    ).toThrowError()
-
-    expect(() =>
-      expect(container.querySelector('.label')).toHaveStyle('color white'),
-    ).toThrowError()
-
-    expect(() =>
-      expect(container.querySelector('.label')).toHaveStyle('--color: black'),
-    ).toThrowError()
     document.body.removeChild(style)
     document.body.removeChild(container)
   })
@@ -114,16 +104,29 @@ describe('.toHaveStyle', () => {
     const { queryByTestId } = render(`
       <span data-testid="color-example" style="background-color: #123456">Hello World</span>
     `)
-    expect(queryByTestId('color-example')).toHaveStyle(
-      'background-color: #123456',
-    )
+    expect(queryByTestId('color-example')).toHaveStyle({
+      'background-color': 'rgb(18, 52, 86)',
+    })
+  })
+
+  test('only accepts rgb() representation for colors', () => {
+    const { queryByTestId } = render(`
+      <span data-testid="color-example" style="background-color: #123456">Hello World</span>
+    `)
+    expect(() => {
+      expect(queryByTestId('color-example')).toHaveStyle({
+        'background-color': '#123456',
+      })
+    }).toThrowError()
   })
 
   test('handles inline custom properties', () => {
     const { queryByTestId } = render(`
       <span data-testid="color-example" style="--color: blue">Hello World</span>
     `)
-    expect(queryByTestId('color-example')).toHaveStyle('--color: blue')
+    expect(queryByTestId('color-example')).toHaveStyle({
+      '--color': 'blue',
+    })
   })
 
   test('handles global custom properties', () => {
@@ -143,25 +146,16 @@ describe('.toHaveStyle', () => {
     document.body.appendChild(style)
     document.body.appendChild(container)
 
-    expect(container).toHaveStyle(`--color: blue`)
+    expect(container).toHaveStyle({ '--color': 'blue' })
   })
 
   test('properly normalizes colors for border', () => {
     const { queryByTestId } = render(`
     <span data-testid="color-example" style="border: 1px solid #fff">Hello World</span>
   `)
-    expect(queryByTestId('color-example')).toHaveStyle('border: 1px solid #fff')
-  })
-
-  test('handles different color declaration formats', () => {
-    const { queryByTestId } = render(`
-      <span data-testid="color-example" style="color: rgba(0, 0, 0, 1); background-color: #000000">Hello World</span>
-    `)
-
-    expect(queryByTestId('color-example')).toHaveStyle('color: #000000')
-    expect(queryByTestId('color-example')).toHaveStyle(
-      'background-color: rgba(0, 0, 0, 1)',
-    )
+    expect(queryByTestId('color-example')).toHaveStyle({
+      border: '1px solid #fff',
+    })
   })
 
   test('handles nonexistent styles', () => {
@@ -171,9 +165,9 @@ describe('.toHaveStyle', () => {
           </div>
         `)
 
-    expect(container.querySelector('.label')).not.toHaveStyle(
-      'whatever: anything',
-    )
+    expect(container.querySelector('.label')).not.toHaveStyle({
+      whatever: 'anything',
+    })
   })
 
   describe('object syntax', () => {
@@ -200,13 +194,15 @@ describe('.toHaveStyle', () => {
       })
     })
 
-    test('Uses px as the default unit', () => {
+    test('does not make assumptions about units', () => {
       const { queryByTestId } = render(`
         <span data-testid="color-example" style="font-size: 12px">Hello World</span>
       `)
-      expect(queryByTestId('color-example')).toHaveStyle({
-        fontSize: 12,
-      })
+      expect(() => {
+        expect(queryByTestId('color-example')).toHaveStyle({
+          fontSize: '12',
+        })
+      }).toThrowError()
     })
 
     test('Fails with an invalid unit', () => {
@@ -225,7 +221,7 @@ describe('.toHaveStyle', () => {
         </div>
       `)
       expect(container.querySelector('.label')).toHaveStyle({
-        'background-color': 'blue',
+        backgroundColor: 'blue',
       })
     })
 

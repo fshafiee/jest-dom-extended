@@ -1,142 +1,133 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 interface CustomMatchers<R> {
-  toBeChecked(): R;
+  toBeChecked(): R
 
-  toBeDisabled(): R;
+  toBeDisabled(): R
 
-  toBeEnabled(): R;
+  toBeEnabled(): R
 
-  toBeEmptyDOMElement(): R;
+  toBeEmptyDOMElement(): R
 
-  toBeInTheDocument(): R;
+  toBeInTheDocument(): R
 
-  toBeInvalid(): R;
+  toBeInvalid(): R
 
-  toBeValid(): R;
+  toBeValid(): R
 
-  toBePartiallyChecked(): R;
+  toBePartiallyChecked(): R
 
-  toBeRequired(): R;
+  toBeRequired(): R
 
-  toBeVisible(): R;
+  toBeVisible(): R
 
-  toContainElement(element: Element): R;
+  toContainElement(element: Element): R
 
-  toContainHTML(htmlText: string): R;
+  toContainHTML(htmlText: string): R
 
-  toHaveAccessibleDescription(expectedAccessibleDescription?: string | RegExp);
+  toHaveAccessibleDescription(expectedAccessibleDescription?: string | RegExp)
 
-  toHaveAccessibleName(expectedAccessibleDescription?: string | RegExp);
+  toHaveAccessibleName(expectedAccessibleDescription?: string | RegExp)
 
-  toHaveAttribute(name?: string, expectedValue?: string);
+  toHaveAttribute(name?: string, expectedValue?: string)
 
   toHaveClass(
     expectedClassNames?: string | string[],
     options?: {
-      exact: boolean;
-    }
-  );
+      exact: boolean
+    },
+  )
 
   toHaveDisplayValue(
-    expectedValue: string | number | RegExp | (string | number | RegExp)[]
-  );
+    expectedValue: string | number | RegExp | (string | number | RegExp)[],
+  )
 
-  toHaveErrorMessage(expectedMessage?: string | RegExp);
+  toHaveErrorMessage(expectedMessage?: string | RegExp)
 
-  toHaveFocus();
+  toHaveFocus()
 
   toHaveFormValues(
     expectedValues: Record<
       string,
       string,
       string | number | string[] | number[]
-    >
-  );
+    >,
+  )
 
-  toHaveStyle(
-    css: Partial<CSSStyleDeclaration> | Record<string, number | string> | string
-  );
+  toHaveStyle(css: Record<string, string | number>)
 
   toHaveTextContent(
     checkWith: string | number | RegExp,
-    options?: { normalizeWhitespace: boolean }
-  );
+    options?: { normalizeWhitespace: boolean },
+  )
 
-  toHaveValue(expectedValue?: null | string | number | (string | number)[]);
+  toHaveValue(expectedValue?: null | string | number | (string | number)[])
 }
 
 declare namespace jest {
   // noinspection JSUnusedGlobalSymbols
   interface Matchers<R> {
-    toBeChecked(): R;
+    toBeChecked(): R
 
-    toBeDisabled(): R;
+    toBeDisabled(): R
 
-    toBeEnabled(): R;
+    toBeEnabled(): R
 
-    toBeEmptyDOMElement(): R;
+    toBeEmptyDOMElement(): R
 
-    toBeInTheDocument(): R;
+    toBeInTheDocument(): R
 
-    toBeInvalid(): R;
+    toBeInvalid(): R
 
-    toBeValid(): R;
+    toBeValid(): R
 
-    toBePartiallyChecked(): R;
+    toBePartiallyChecked(): R
 
-    toBeRequired(): R;
+    toBeRequired(): R
 
-    toBeVisible(): R;
+    toBeVisible(): R
 
-    toContainElement(element: Element): R;
+    toContainElement(element: Element): R
 
-    toContainHTML(htmlText: string): R;
+    toContainHTML(htmlText: string): R
 
-    toHaveAccessibleDescription(
-      expectedAccessibleDescription?: string | RegExp
-    );
+    toHaveAccessibleDescription(expectedAccessibleDescription?: string | RegExp)
 
-    toHaveAccessibleName(expectedAccessibleDescription?: string | RegExp);
+    toHaveAccessibleName(expectedAccessibleDescription?: string | RegExp)
 
-    toHaveAttribute(name?: string, expectedValue?: string);
+    toHaveAttribute(name?: string, expectedValue?: string)
 
     toHaveClass(
       expectedClassNames?: string | string[],
       options?: {
-        exact: boolean;
-      }
-    );
+        exact: boolean
+      },
+    )
 
     toHaveDisplayValue(
-      expectedValue: string | number | RegExp | (string | number | RegExp)[]
-    );
+      expectedValue: string | number | RegExp | (string | number | RegExp)[],
+    )
 
-    toHaveErrorMessage(expectedMessage?: string | RegExp);
+    toHaveErrorMessage(expectedMessage?: string | RegExp)
 
-    toHaveFocus();
+    toHaveFocus()
 
     toHaveFormValues(
       expectedValues: Record<
         string,
         string,
         string | number | string[] | number[]
-      >
-    );
+      >,
+    )
 
-    toHaveStyle(
-      css:
-        | Partial<CSSStyleDeclaration>
-        | Record<string, number | string>
-        | string
-    );
+    toHaveStyle(css: Record<string, string | number>)
 
     toHaveTextContent(
       checkWith: string | number | RegExp,
-      options?: { normalizeWhitespace: boolean }
-    );
+      options?: { normalizeWhitespace: boolean },
+    )
 
-    toHaveValue(expectedValue?: null | string | number | (string | number)[]);
+    toHaveValue(expectedValue?: null | string | number | (string | number)[])
   }
 
   interface Expect extends CustomMatchers<any> {}
