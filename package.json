@@ -1,6 +1,6 @@
 {
   "name": "@farzadsh/jest-dom-extended",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Custom Jest matchers to test the state of the DOM for ESM",
   "engines": {
     "node": ">=16.18.1",
@@ -11,6 +11,7 @@
   "module": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./types/index.d.ts",
       "import": "./dist/index.js"
     }
   },
