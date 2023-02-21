@@ -40,7 +40,7 @@ content, its css classes, you name it.
 
 ## This solution
 
-The `@farzadsh/jest-dom-extended-esm` library provides a set of custom jest matchers
+The `@farzadsh/jest-dom-extended` library provides a set of custom jest matchers
 that you can use to extend jest. These will make your tests more declarative,
 clear to read and to maintain.
 
@@ -90,7 +90,7 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev @farzadsh/jest-dom-extended-esm
+npm install --save-dev @farzadsh/jest-dom-extended
 ```
 
 or
@@ -98,7 +98,7 @@ or
 for installation with [yarn](https://yarnpkg.com/) package manager.
 
 ```
-yarn add --dev @farzadsh/jest-dom-extended-esm
+yarn add --dev @farzadsh/jest-dom-extended
 ```
 
 > Note: We also recommend installing the jest-dom eslint plugin which provides
@@ -109,7 +109,7 @@ yarn add --dev @farzadsh/jest-dom-extended-esm
 
 ## Usage
 
-Import `@farzadsh/jest-dom-extended-esm` once (for instance in your [tests setup
+Import `@farzadsh/jest-dom-extended` once (for instance in your [tests setup
 file][]) and you're good to go:
 
 [tests setup file]:
@@ -117,7 +117,7 @@ file][]) and you're good to go:
 
 ```javascript
 // In your own jest-setup.js (or any other name)
-import '@farzadsh/jest-dom-extended-esm'
+import '@farzadsh/jest-dom-extended'
 
 // In jest.config.js add (if you haven't already)
 setupFilesAfterEnv: ['<rootDir>/jest-setup.js']
@@ -141,7 +141,7 @@ haven't already:
 
 ## Custom matchers
 
-`@farzadsh/jest-dom-extended-esm` can work with any library or framework that returns
+`@farzadsh/jest-dom-extended` can work with any library or framework that returns
 DOM elements from queries. The custom matcher examples below are written using
 matchers from `@testing-library`'s suite of libraries (e.g. `getByTestId`,
 `queryByTestId`, `getByText`, etc.)
@@ -1285,13 +1285,13 @@ MIT
   https://img.shields.io/codecov/c/github/testing-library/jest-dom.svg?style=flat-square
 [coverage]: https://codecov.io/github/testing-library/jest-dom
 [version-badge]:
- https://img.shields.io/npm/v/@farzadsh/jest-dom-extended-esm.svg?style=flat-square
-[package]: https://www.npmjs.com/package/@farzadsh/jest-dom-extended-esm
+ https://img.shields.io/npm/v/@farzadsh/jest-dom-extended.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@farzadsh/jest-dom-extended
 [downloads-badge]:
-  https://img.shields.io/npm/dm/@farzadsh/jest-dom-extended-esm.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/@farzadsh/jest-dom-extended-esm
+  https://img.shields.io/npm/dm/@farzadsh/jest-dom-extended.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/@farzadsh/jest-dom-extended
 [license-badge]:
-  https://img.shields.io/npm/l/@farzadsh/jest-dom-extended-esm.svg?style=flat-square
+  https://img.shields.io/npm/l/@farzadsh/jest-dom-extended.svg?style=flat-square
 [license]: https://github.com/fshafiee/jest-dom-extended/blob/main/LICENSE
 [prs-badge]:
   https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
