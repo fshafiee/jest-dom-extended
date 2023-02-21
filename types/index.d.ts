@@ -47,14 +47,10 @@ interface CustomMatchers<R> {
   toHaveFocus()
 
   toHaveFormValues(
-    expectedValues: Record<
-      string,
-      string,
-      string | number | string[] | number[]
-    >,
+    expectedValues: Record<string, string | number | string[] | number[]>,
   )
 
-  toHaveStyle(css: Record<string, string | number>)
+  toHaveStyle(css: Record<string, string>)
 
   toHaveTextContent(
     checkWith: string | number | RegExp,
@@ -113,14 +109,10 @@ declare namespace jest {
     toHaveFocus()
 
     toHaveFormValues(
-      expectedValues: Record<
-        string,
-        string,
-        string | number | string[] | number[]
-      >,
+      expectedValues: Record<string, string | number | string[] | number[]>,
     )
 
-    toHaveStyle(css: Record<string, string | number>)
+    toHaveStyle(css: Record<string, string>)
 
     toHaveTextContent(
       checkWith: string | number | RegExp,

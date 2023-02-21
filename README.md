@@ -258,6 +258,49 @@ expect(
 
 <hr />
 
+### `toBeValid`
+
+```typescript
+toBeValid()
+```
+
+This allows you to check if the value of an element, is currently valid.
+
+An element is valid if it has no
+[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)s
+or an attribute value of `"false"`. The result of
+[`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
+must also be `true` if it's a form element.
+
+#### Examples
+
+```html
+<input data-testid="no-aria-invalid" />
+<input data-testid="aria-invalid" aria-invalid />
+<input data-testid="aria-invalid-value" aria-invalid="true" />
+<input data-testid="aria-invalid-false" aria-invalid="false" />
+
+<form data-testid="valid-form">
+  <input />
+</form>
+
+<form data-testid="invalid-form">
+  <input required />
+</form>
+```
+
+```javascript
+expect(getByTestId('no-aria-invalid')).toBeValid()
+expect(getByTestId('aria-invalid')).not.toBeValid()
+expect(getByTestId('aria-invalid-value')).not.toBeValid()
+expect(getByTestId('aria-invalid-false')).toBeValid()
+
+expect(getByTestId('valid-form')).toBeValid()
+expect(getByTestId('invalid-form')).not.toBeValid()
+```
+
+<hr />
+
 ### `toBeInvalid`
 
 ```typescript
@@ -338,49 +381,6 @@ expect(getByTestId('select')).toBeRequired()
 expect(getByTestId('textarea')).toBeRequired()
 expect(getByTestId('supported-role')).not.toBeRequired()
 expect(getByTestId('supported-role-aria')).toBeRequired()
-```
-
-<hr />
-
-### `toBeValid`
-
-```typescript
-toBeValid()
-```
-
-This allows you to check if the value of an element, is currently valid.
-
-An element is valid if it has no
-[`aria-invalid` attribute](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-invalid_attribute)s
-or an attribute value of `"false"`. The result of
-[`checkValidity()`](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation)
-must also be `true` if it's a form element.
-
-#### Examples
-
-```html
-<input data-testid="no-aria-invalid" />
-<input data-testid="aria-invalid" aria-invalid />
-<input data-testid="aria-invalid-value" aria-invalid="true" />
-<input data-testid="aria-invalid-false" aria-invalid="false" />
-
-<form data-testid="valid-form">
-  <input />
-</form>
-
-<form data-testid="invalid-form">
-  <input required />
-</form>
-```
-
-```javascript
-expect(getByTestId('no-aria-invalid')).toBeValid()
-expect(getByTestId('aria-invalid')).not.toBeValid()
-expect(getByTestId('aria-invalid-value')).not.toBeValid()
-expect(getByTestId('aria-invalid-false')).toBeValid()
-
-expect(getByTestId('valid-form')).toBeValid()
-expect(getByTestId('invalid-form')).not.toBeValid()
 ```
 
 <hr />
@@ -695,7 +695,7 @@ expect(input).not.toHaveFocus()
 
 ```typescript
 toHaveFormValues(expectedValues: {
-  [name: string]: any
+  [name: string]: string | number | string[] | number[]
 })
 ```
 
@@ -776,21 +776,23 @@ expect(getByTestId('login-form')).toHaveFormValues({
 ### `toHaveStyle`
 
 ```typescript
-toHaveStyle(css: object)
+toHaveStyle(css: {
+  [name: string]: string
+})
 ```
 
 This allows you to check if a certain element has some specific css properties
 with specific values applied. It matches only if the element has _all_ the
 expected properties applied, not just some of them.
 
-**CAUTION:** Since the library relies only on [`Window.getComputedStyle`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to compare the values, you need to provide `rgb()` representation of color values in your assertion statments. If you prefer to use semantic names for color assertions, you can use 3rd party libraries (like [colord](https://github.com/omgovich/colord)) or create semantic variables of your own.
+**CAUTION:** Since the library relies on [`Window.getComputedStyle`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) to compare the CSS values, you need to provide `rgb()` representation of colors instead of HEX values in your assertion statments.
 
 #### Examples
 
 ```html
 <button
   data-testid="delete-button"
-  style="display: none; background-color: red"
+  style="display: none; background-color: red; color: #00FF00;"
 >
   Delete item
 </button>
@@ -799,25 +801,27 @@ expected properties applied, not just some of them.
 ```javascript
 const button = getByTestId('delete-button')
 
-expect(button).toHaveStyle({display: 'none'})
-
 expect(button).toHaveStyle({
-    'background-color': 'rgb(1, 0, 0)',
-    display: none,
-})
-expect(button).toHaveStyle({
-    'background-color': 'rgb(1, 0, 0)',
-    display: none,
+  display: 'none'
 })
 
-const blue = 'rgb(0, 0, 1)'
-expect(button).not.toHaveStyle({
-  'background-color': blue;
-   display: none;
+expect(button).toHaveStyle({
+    'background-color': 'red',
+    color: 'rgb(0, 255, 0)',
+})
+
+expect(button).toHaveStyle({
+    backgroundColor: 'red',
+    display: 'none',
 })
 
 expect(button).not.toHaveStyle({
-  backgroundColor: colord('blue').toRgbString(),
+  'background-color': 'blue',
+   display: 'none',
+})
+
+expect(button).not.toHaveStyle({
+  backgroundColor: 'blue',
   display: 'none',
 })
 ```
@@ -865,7 +869,7 @@ expect(element).not.toHaveTextContent('content')
 ### `toHaveValue`
 
 ```typescript
-toHaveValue(value: string | string[] | number)
+toHaveValue(expectedValue?: string | number | (string | number)[])
 ```
 
 This allows you to check whether the given form element has the specified value.
@@ -909,7 +913,7 @@ expect(selectInput).toHaveValue(['second', 'third'])
 ### `toHaveDisplayValue`
 
 ```typescript
-toHaveDisplayValue(value: string | RegExp | (string|RegExp)[])
+toHaveDisplayValue(value: string | number | RegExp | (string | number | RegExp)[])
 ```
 
 This allows you to check whether the given form element has the specified
@@ -1071,7 +1075,7 @@ expect(inputCheckboxIndeterminate).toBePartiallyChecked()
 ### `toHaveErrorMessage`
 
 ```typescript
-toHaveErrorMessage(text: string | RegExp)
+toHaveErrorMessage(expectedMessage?: string | RegExp)
 ```
 
 This allows you to check whether the given element has an
